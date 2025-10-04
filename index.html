@@ -1,0 +1,945 @@
+<!-------Copyright MACMAS Studio
+-This code is hereby protected by Laker.J.Leslie HimSelf
+-This code is truly the 8th wonder of this world
+-the loops and engima of those how aplease it
+-please don't change this code-----!>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="fav.png"/>
+    <title>Glamourholic</title>
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .fancy {
+            font-family: "Patrick Hand", cursive;
+        }
+        .cool {
+            font-family: "Roboto", sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000000; /* Changed background to solid black theme */
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Background Animations */
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.1); /* Changed floating elements to red with transparency for black background */
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            left: 70%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            left: 40%;
+            animation-delay: -10s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            left: 80%;
+            animation-delay: -15s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header Styles */
+        header {
+            background: rgba(20, 20, 20, 0.9); /* Updated header background for black theme */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            background: linear-gradient(45deg, #fff, #f0f0f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .contact-btn {
+            background: #dc2626; /* Changed contact button to red theme */
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-btn:hover {
+            background: #b91c1c; /* Red hover effect for contact button */
+            transform: translateY(-2px);
+        }
+
+        /* Cart Styles */
+        .cart-icon {
+            position: relative;
+            background: rgba(60, 60, 60, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 1rem;
+        }
+
+        .cart-icon:hover {
+            background: rgba(220, 38, 38, 0.3);
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc2626;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(20px);
+            border-left: 1px solid rgba(255, 0, 0, 0.3);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            padding: 2rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .cart-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .cart-items {
+            padding: 1rem;
+        }
+
+        .cart-item {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            color: white;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: #4ade80;
+            font-weight: 600;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .quantity-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-btn:hover {
+            background: #b91c1c;
+        }
+
+        .remove-item {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            border: 1px solid #ef4444;
+            border-radius: 8px;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .remove-item:hover {
+            background: rgba(239, 68, 68, 0.4);
+        }
+
+        .cart-footer {
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 0, 0, 0.3);
+            position: sticky;
+            bottom: 0;
+            background: rgba(20, 20, 20, 0.95);
+        }
+
+        .cart-total {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(45deg, #dc2626, #b91c1c);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .checkout-btn:disabled {
+            background: rgba(60, 60, 60, 0.8);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .cart-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        .cart-overlay.show {
+            display: block;
+        }
+
+        /* Main Content */
+        main {
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .product-card {
+            background: rgba(40, 40, 40, 0.8); /* Updated product cards for black theme */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            background: rgba(60, 60, 60, 0.9); /* Darker hover effect for black theme */
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .product-title {
+            color: white;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .product-price {
+            color: #4ade80;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+        }
+
+        .rating-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .buy-btn {
+            flex: 1;
+            background: linear-gradient(45deg, #dc2626, #b91c1c); /* Changed buy buttons to red gradient */
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .buy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(220, 38, 38, 0.4); /* Red shadow for buy button hover */
+        }
+
+        .favorite-btn {
+            background: rgba(60, 60, 60, 0.8); /* Updated favorite button for black theme */
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .favorite-btn:hover {
+            background: rgba(220, 38, 38, 0.3); /* Red tint on favorite button hover */
+            transform: scale(1.1);
+        }
+
+        /* Contact Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9); /* Updated modal for black theme */
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(40, 40, 40, 0.95); /* Updated modal for black theme */
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal h2 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            background: rgba(60, 60, 60, 0.8); /* Updated contact items for black theme */
+            padding: 1rem;
+            border-radius: 15px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(220, 38, 38, 0.3); /* Red hover effect for contact items */
+            transform: translateY(-2px);
+        }
+
+        .close-btn {
+            background: #dc2626; /* Updated close button to red theme */
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        .close-btn:hover {
+            background: #b91c1c; /* Darker red hover for close button */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                padding: 0 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-bg">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
+    <header>
+        <div class="header-content">
+            <img src="header.png" alt="Logo" style="height: 50px; margin-right: 10px;">
+            <h1 class="fancy">~Glamourholic~</h1>
+            <div style="display: flex; align-items: center;">
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="contact-btn" onclick="openContactModal()">Contact Us</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="skyblue(bright).jpg" alt="Dresses" class="product-image">
+                <h3 class="product-title">Dresses SkyBlue</h3>
+                <p class="product-description">Strong Material Used Perfect for Get together events and functions.</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.8 (2,341 reviews)</span>
+                </div>
+                <div class="product-price">UGX. 30,000</div>
+                <div class="product-actions">
+                    <button class="buy-btn" onclick="addToCart('Dresses SkyBlue', 30000, 'skyblue(bright).jpg')">Add to Cart</button>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">♡</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="black.jpg" alt="Dresses" class="product-image">
+                <h3 class="product-title">Dresses (MidNight Black)</h3>
+                <p class="product-description">Deep, Rich and Elegant perfect for Formal Events and Special Occasions.</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-text">4.6 (1,892 reviews)</span>
+                </div>
+                <div class="product-price">UGX. 30,000</div>
+                <div class="product-actions">
+                    <button class="buy-btn" onclick="addToCart('Dresses (MidNight Black)', 30000, 'black.jpg')">Add to Cart</button>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">♡</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="skyblue(dawn).jpg" alt="Bluetooth Speaker" class="product-image">
+                <h3 class="product-title">Dresses SkyDawn</h3>
+                <p class="product-description">Strong Material Used Perfect for Get together events and functions..</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-text">4.9 (3,156 reviews)</span>
+                </div>
+                <div class="product-price">UGX. 35,000</div>
+                <div class="product-actions">
+                    <button class="buy-btn" onclick="addToCart('Dresses SkyDawn', 35000, 'skyblue(dawn).jpg')">Add to Cart</button>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">♡</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="red.jpg" alt="Dresses" class="product-image">
+                <h3 class="product-title">RoseBy Dress</h3>
+                <p class="product-description">Good for Weddings, Birthdays and many more.</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-text">4.7 (987 reviews)</span>
+                </div>
+                <div class="product-price">UGX. 27,000</div>
+                <div class="product-actions">
+                    <button class="buy-btn" onclick="addToCart('RoseBy Dress', 27000, 'red.jpg')">Add to Cart</button>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">♡</button>
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="pink(slip).jpg" alt="Dresses" class="product-image">
+                <h3 class="product-title">Bodycon Pink Dress</h3>
+                <p class="product-description">Good for Casual Outings, Parties, Summer Events and Dinners.</p>
+                <div class="product-rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="rating-text">4.7 (987 reviews)</span>
+                </div>
+                <div class="product-price">UGX. 27,000</div>
+                <div class="product-actions">
+                    <button class="buy-btn" onclick="addToCart('Bodycon Pink Dress', 27000, 'pink(slip).jpg')">Add to Cart</button>
+                    <button class="favorite-btn" onclick="toggleFavorite(this)">♡</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2 class="cart-title">Shopping Cart</h2>
+            <button class="cart-close" onclick="closeCart()">×</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <p>Your cart is empty</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some items to get started!</p>
+            </div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total" id="cartTotal">Total: UGX. 0</div>
+            <button class="checkout-btn" id="checkoutBtn" onclick="proceedToCheckout()" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <h2>Contact Us</h2>
+            <div id="selectedProduct" style="display: none; margin-bottom: 1rem; color: #4ade80;"></div>
+            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">Choose your preferred contact method:</p>
+            <div class="contact-info">
+                <a href="https://wa.me/256752074549/?text=Hello%20Glamourholic%20Team!" class="contact-item">
+                    <strong>📱 WhatsApp</strong><br>
+                    <span style="font-size: 0.9rem;">+256 752 074 549</span>
+                </a>
+                <a href="mailto:glamourholicug@gmail.com?subject=Inquiry%20from%20Website" class="contact-item">
+                    <strong>📧 Email</strong><br>
+                    <span style="font-size: 0.9rem;">glamourholicug@gmail.com</span>
+                </a>
+            </div>
+            <button class="close-btn" onclick="closeContactModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let selectedProductName = '';
+        let cart = JSON.parse(localStorage.getItem('glamourholic_cart')) || [];
+
+        // Cart functions
+        function addToCart(name, price, image) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: name,
+                    price: price,
+                    image: image,
+                    quantity: 1
+                });
+            }
+            
+            updateCartStorage();
+            updateCartUI();
+            showCartNotification(name);
+        }
+
+        function removeFromCart(name) {
+            cart = cart.filter(item => item.name !== name);
+            updateCartStorage();
+            updateCartUI();
+        }
+
+        function updateQuantity(name, change) {
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(name);
+                } else {
+                    updateCartStorage();
+                    updateCartUI();
+                }
+            }
+        }
+
+        function updateCartStorage() {
+            localStorage.setItem('glamourholic_cart', JSON.stringify(cart));
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            
+            // Update cart count
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
+            
+            // Update cart items
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Add some items to get started!</p>
+                    </div>
+                `;
+                checkoutBtn.disabled = true;
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <div class="cart-item-name">${item.name}</div>
+                            <div class="cart-item-price">UGX. ${item.price.toLocaleString()}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.name}', -1)">-</button>
+                                <span style="color: white; margin: 0 0.5rem;">${item.quantity}</span>
+                                <button class="quantity-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart('${item.name}')">Remove</button>
+                    </div>
+                `).join('');
+                checkoutBtn.disabled = false;
+            }
+            
+            // Update total
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `Total: UGX. ${total.toLocaleString()}`;
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            
+            if (sidebar.classList.contains('open')) {
+                closeCart();
+            } else {
+                sidebar.classList.add('open');
+                overlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            const overlay = document.getElementById('cartOverlay');
+            
+            sidebar.classList.remove('open');
+            overlay.classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function showCartNotification(productName) {
+            // Simple notification - you could enhance this with a toast notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: rgba(220, 38, 38, 0.9);
+                color: white;
+                padding: 1rem;
+                border-radius: 10px;
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = `${productName} added to cart!`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        function proceedToCheckout() {
+            if (cart.length === 0) return;
+            
+            // Generate cart summary for WhatsApp and email
+            const cartSummary = cart.map(item => 
+                `${item.name} - Qty: ${item.quantity} - UGX. ${(item.price * item.quantity).toLocaleString()}`
+            ).join('\n');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const orderDetails = `Hello Glamourholic Team!\n\nI would like to place an order:\n\n${cartSummary}\n\nTotal: UGX. ${total.toLocaleString()}\n\nPlease confirm availability and delivery details.`;
+            
+            // Update contact modal with cart information
+            selectedProductName = 'Cart Items';
+            openContactModalWithCart(orderDetails);
+            closeCart();
+        }
+
+        function openContactModalWithCart(orderDetails) {
+            const modal = document.getElementById('contactModal');
+            const productElement = document.getElementById('selectedProduct');
+            
+            productElement.innerHTML = `
+                <strong>Your Cart Summary:</strong><br>
+                <div style="text-align: left; margin: 1rem 0; padding: 1rem; background: rgba(60, 60, 60, 0.5); border-radius: 10px;">
+                    ${cart.map(item => `${item.name} (${item.quantity}x) - UGX. ${(item.price * item.quantity).toLocaleString()}`).join('<br>')}
+                    <hr style="margin: 0.5rem 0; border-color: rgba(255, 0, 0, 0.3);">
+                    <strong>Total: UGX. ${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString()}</strong>
+                </div>
+            `;
+            productElement.style.display = 'block';
+            
+            // Update contact links with cart data
+            const whatsappLink = document.querySelector('a[href*="wa.me"]');
+            const emailLink = document.querySelector('a[href*="mailto"]');
+            
+            if (whatsappLink) {
+                whatsappLink.href = `https://wa.me/256752074549/?text=${encodeURIComponent(orderDetails)}`;
+            }
+            
+            if (emailLink) {
+                const subject = 'Order from Glamourholic Website';
+                emailLink.href = `mailto:glamourholicug@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(orderDetails)}`;
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Initialize cart on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartUI();
+        });
+
+        function openContactModal(productName = '') {
+            selectedProductName = productName;
+            const modal = document.getElementById('contactModal');
+            const productElement = document.getElementById('selectedProduct');
+            
+            if (productName) {
+                productElement.textContent = `Selected: ${productName}`;
+                productElement.style.display = 'block';
+            } else {
+                productElement.style.display = 'none';
+            }
+            
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contactModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function toggleFavorite(button) {
+            if (button.textContent === '♡') {
+                button.textContent = '♥';
+                button.style.color = '#ef4444';
+            } else {
+                button.textContent = '♡';
+                button.style.color = 'white';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('contactModal');
+            if (event.target === modal) {
+                closeContactModal();
+            }
+        }
+
+        // Add some dynamic floating elements
+        function createFloatingElement() {
+            const element = document.createElement('div');
+            element.className = 'floating-element';
+            element.style.left = Math.random() * 100 + '%';
+            element.style.width = (Math.random() * 60 + 40) + 'px';
+            element.style.height = element.style.width;
+            element.style.animationDelay = Math.random() * 20 + 's';
+            
+            document.querySelector('.floating-bg').appendChild(element);
+            
+            setTimeout(() => {
+                element.remove();
+            }, 20000);
+        }
+
+        // Create new floating elements periodically
+        setInterval(createFloatingElement, 3000);
+    </script>
+</body>
+</html>
